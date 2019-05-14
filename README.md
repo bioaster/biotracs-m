@@ -17,23 +17,27 @@ Initiated at BIOASTER, the biotracs project is today open to the community in or
 The key idea behind the biotracs framework is to ultimately provide a community-driven analytics platform where computational processes are traceable, upgradable and easily sharable at the code, application and scientific project levels. 
 
 <a name="behind-biotracs"/>
-## Behind BioTracs
+
+# Behind BioTracs
 
 Biotracs framework is based on the PRISM (Process-Resource Interfacing SysteM) architecture designed at BIOASTER [(wiki page coming soon!)](https://en.wikipedia.org/wiki/Process-resource-interfacing-system). 
 The PRISM architecture was designed on the basis of the well-known MVC (model-view-controller) architecture (https://en.wikipedia.org/wiki/Model-view-controller). Biotracs is therefore MVC-oriented. 
 PRISM ambitions to provide an environment in which developers and end-users can concurrently contribute to the same applications while guaranteeing that what is implemented by the developers at the code level is what is delivered to the end-users with almost no supplementary effort.
 
 <a name="doc"/>
+
 # Documentation
 
 Please refer to the documentation at https://github.com/bioaster/biotracs
 
 <a name="how-to-contribute"/>
+
 # How to contribute?
 
 To contribute to the core project or to biotracs applications, please refer to https://github.com/bioaster/biotracs
 
 <a name="license"/>
+
 # License
 
 BIOASTER License
