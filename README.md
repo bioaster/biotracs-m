@@ -7,7 +7,7 @@
 
 <a name="what-is-biotracs"/>
 
-# The BioTracs project?
+# The BioTracs project
 
 The biotracs project aims at providing an open community-driven analytics platform. It is an effort for standardizing the implementation and traceability of analytics workflows in bioinformatics. 
 
