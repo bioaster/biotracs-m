@@ -1,0 +1,27 @@
+{
+  "type": "pathway",
+  "nodes":[
+    {"name":"Acetate","group":1,"x":250,"y":250,"score":0,"type":"circle"},
+    {"name":"Lactate","group":1,"x":250,"y":250,"score":0.1,"type":"square"},
+    {"name":"Glucose","group":2,"x":250,"y":250,"score":0.5,"type":"circle"},
+    {"name":"Pyruvate","group":2,"x":250,"y":250,"score":0.7,"type":"circle"},
+    {"name":"Glycogen","group":2,"x":250,"y":250,"score":0.2,"type":"circle"},
+    {"name":"ATP","group":3,"x":250,"y":250,"score":1.0,"type":"square"},
+    {"name":"O2","group":3,"x":250,"y":250,"score":0.5,"type":"square"},
+    {"name":"ADP","group":3,"x":250,"y":250,"score":0.3,"type":"circle"},
+    {"name":"Cholesterol","group":4,"x":250,"y":250,"score":0,"type":"circle"},
+    {"name":"Malate","group":1,"x":250,"y":250,"score":1.0,"type":"circle"}
+  ],
+  "links":[
+    {"source":1,"target":0,"value":1},
+    {"source":2,"target":0,"value":8},
+    {"source":3,"target":0,"value":10},
+    {"source":3,"target":2,"value":100},
+    {"source":4,"target":3,"value":1},
+    {"source":5,"target":0,"value":1},
+    {"source":6,"target":0,"value":1},
+    {"source":7,"target":0,"value":1},
+    {"source":8,"target":0,"value":2},
+    {"source":9,"target":0,"value":1}
+  ]
+}

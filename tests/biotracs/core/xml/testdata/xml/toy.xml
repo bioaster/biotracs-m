@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<city country='France'>
+    <zone name="north">
+        <itemlist>
+            <data name="Paris" />
+            <data name="Lille" />
+        </itemlist>
+    </zone>
+    <zone name="south">
+        <itemlist>
+            <data name="Lyon" />
+            <data name="Nice" />
+        </itemlist>
+    </zone>
+    <doc name="documentation">
+        <data>This is mys doc</data>
+    </doc>
+</city>

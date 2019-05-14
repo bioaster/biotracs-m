@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<results>
+    <coords>
+        <unit>a.u.</unit>
+        <value type="real" size="3 2">
+            <vector index="x 1">
+                0.0000000000000000 0.0000000000000000 0.0000000000000000 
+            </vector>
+            <vector index="x 2">
+                5.6691783835513254 0.0000000000000000 0.0000000000000000 
+            </vector>
+        </value>
+    </coords>
+  
