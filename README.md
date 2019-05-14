@@ -1,4 +1,3 @@
-
 # Table of Contents
 * [What is BioTracs](#what-is-biotracs)
 * [Behind BioTracs](#behind-biotracs)
@@ -7,6 +6,7 @@
 * [License](#license)
 
 <a name="what-is-biotracs"/>
+
 # The BioTracs project?
 
 The biotracs project aims at providing an open community-driven analytics platform. It is an effort for standardizing the implementation and traceability of analytics workflows in bioinformatics. 
@@ -17,7 +17,7 @@ Initiated at BIOASTER, the biotracs project is today open to the community in or
 The key idea behind the biotracs framework is to ultimately provide a community-driven analytics platform where computational processes are traceable, upgradable and easily sharable at the code, application and scientific project levels. 
 
 <a name="behind-biotracs"/>
-# Behind BioTracs
+## Behind BioTracs
 
 Biotracs framework is based on the PRISM (Process-Resource Interfacing SysteM) architecture designed at BIOASTER [(wiki page coming soon!)](https://en.wikipedia.org/wiki/Process-resource-interfacing-system). 
 The PRISM architecture was designed on the basis of the well-known MVC (model-view-controller) architecture (https://en.wikipedia.org/wiki/Model-view-controller). Biotracs is therefore MVC-oriented. 
