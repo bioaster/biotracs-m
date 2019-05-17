@@ -1,7 +1,7 @@
 classdef DataSelectorTests < matlab.unittest.TestCase
     
     properties
-        workingDir = fullfile(biotracs.core.env.Env.workingDir(), '/spectra/dataproc/DataSelectorTests');
+        workingDir = fullfile(biotracs.core.env.Env.workingDir(), '/biotracs/dataproc/DataSelectorTests');
     end
     
     methods (Test)

@@ -1,7 +1,7 @@
 classdef DataMergerTests < matlab.unittest.TestCase
     
     properties
-        workingDir = fullfile(biotracs.core.env.Env.workingDir(), '/spectra/dataproc/DataMergerTests');
+        workingDir = fullfile(biotracs.core.env.Env.workingDir(), '/biotracs/dataproc/DataMergerTests');
     end
     
     methods (Test)

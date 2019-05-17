@@ -1,7 +1,7 @@
 classdef DataStatsCalculatorTests < matlab.unittest.TestCase
     
     properties
-        workingDir = fullfile(biotracs.core.env.Env.workingDir(), '/spectra/dataproc/DataStatsCalculatorTests');
+        workingDir = fullfile(biotracs.core.env.Env.workingDir(), '/biotracs/dataproc/DataStatsCalculatorTests');
     end
     
     methods (Test)

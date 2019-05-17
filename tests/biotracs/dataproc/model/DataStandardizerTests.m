@@ -1,7 +1,7 @@
 classdef DataStandardizerTests < matlab.unittest.TestCase
     
     properties
-        workingDir = fullfile(biotracs.core.env.Env.workingDir(), '/spectra/dataproc/DataStandardizerTests');
+        workingDir = fullfile(biotracs.core.env.Env.workingDir(), '/biotracs/dataproc/DataStandardizerTests');
     end
     
     methods (Test)

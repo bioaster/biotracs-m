@@ -80,13 +80,17 @@ function autoload( varargin )
     end    
 end
 
-function oDepPaths = createDepPaths( iRootPaths, iDeps )
+function oDepPaths = createDepPaths( iRootPaths, iDeps, iExceptions )
     oDepPaths = {};
     foundDeps = {};
     if isempty(iDeps)
         return;
     end
 
+    if nargin == 2
+        iExceptions = {};
+    end
+    
     isRelativeDir = ~cellfun(@isempty,  regexp(iRootPaths, '^\.', 'once'));
     if isRelativeDir
         error('The RootPaths must be absolutes paths');
@@ -117,14 +121,15 @@ function oDepPaths = createDepPaths( iRootPaths, iDeps )
                     if isfield(data, 'dependencies')
                         subDeps = {};
                         for k=1:length(data.dependencies)
-                            if ~any(ismember(foundDeps, data.dependencies{k}))
+                            if ~any(ismember(foundDeps, data.dependencies{k})) && ...
+                                ~any(ismember(iExceptions, data.dependencies{k}))
                                 subDeps{end+1} = data.dependencies{k}; %#ok<AGROW>
                             end
                         end
 
                         oDepPaths = [...
                             oDepPaths, ...
-                            createDepPaths( iRootPaths, subDeps ) ...
+                            createDepPaths( iRootPaths, subDeps, foundDeps ) ...
                             ]; %#ok<AGROW>
                     end
                 end

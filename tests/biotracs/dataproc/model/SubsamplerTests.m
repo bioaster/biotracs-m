@@ -1,7 +1,7 @@
 classdef SubsamplerTests < matlab.unittest.TestCase
 
     properties
-        workingDir = fullfile(biotracs.core.env.Env.workingDir(), '/spectra/dataproc/SubsamplerTests');
+        workingDir = fullfile(biotracs.core.env.Env.workingDir(), '/biotracs/dataproc/SubsamplerTests');
     end
     
     methods (Test)
