@@ -19,7 +19,7 @@ Please refer to the documentation at https://bioaster.github.io/biotracs/documen
 
 ```matlab
 % file main.m
-% This test file uses that Atlas application to 
+% This test file uses the Atlas application to 
 % perform principal component analysis
 %--------------------------------------------------
 
