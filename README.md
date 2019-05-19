@@ -14,16 +14,19 @@ To learn more about the BioTracs project, please refers to https://github.com/bi
 
 Please refer to the documentation at https://bioaster.github.io/biotracs/documentation
 
+* The `autoload.m` file is available in the directory `./tests/`
+* When calling `autoload()` function, the argument `PkgPaths` refers to the list directory paths containing all the BioTracs applications. It however is recommended to keep all the applications in the same directory.
 
 ```matlab
-%file main.m
-%-----------------------------------------
-addpath('/path/to/autoload.m')
+% file main.m
+% This test file uses that Atlas application to 
+% perform principal component analysis
+%--------------------------------------------------
 
-%% load the biotracs framework
-%pkgdir: the directory with the all biotracs git repo are downloaded
+addpath('/path/to/atoload.m/');
+pkgDir = fullfile('/path/to/package/dir/');
 autoload( ...
-	'PkgPaths', {'/path/to/pkgdir'}, ...
+	'PkgPaths', { pkgDir }, ...
 	'Dependencies', {...
 		'biotracs-m-atlas', ...
 	}, ...
@@ -31,7 +34,7 @@ autoload( ...
 	) ...
 );
 	
-%% perform PCA analysis
+% Perform PCA
 dataSet = biotracs.data.model.DataSet.import('/path/to/dataset.csv');
 pca = biotracs.atlas.model.PCALearner();
 pca.setInputPortData('DataSet', dataSet);
@@ -40,7 +43,8 @@ pca.setInputPortData('DataSet', dataSet);
 pca.getConfig()...
 	.updateParamValue('NbComponents', 3)...
 	.updateParamValue('Center', true)...
-	.updateParamValue('Scale', 'uv');
+	.updateParamValue('Scale', 'uv')...
+	.updateParamValue('WorkingDir', '/path/to/pca/workingdir');
 
 %% run
 pca.run();
@@ -48,7 +52,7 @@ result = process.getOutputPortData('result');
 result.view('ScorePlot');
 
 %display score matrix
-result.get('XScores').summary()
+result.get('XScores').summary();
 ```
 
 # License
