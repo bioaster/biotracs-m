@@ -18,7 +18,7 @@ classdef Controller < biotracs.core.ability.Parametrable
         function this = Controller()
             this@biotracs.core.ability.Parametrable();
             this.session = biotracs.core.mvc.model.Session(0, 'biotracs.core.mvc.model.BaseObject');
-            this.createParam('WorkingDirectory', '', 'Constraint', biotracs.core.constraint.IsText());
+            this.createParam('WorkingDirectory', '', 'Constraint', biotracs.core.constraint.IsPath());
         end
 
         %-- A --
