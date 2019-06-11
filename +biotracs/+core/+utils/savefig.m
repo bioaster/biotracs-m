@@ -11,7 +11,7 @@ function [oImageName, oFigureName] = savefig( iDirPath, iFileName, varargin )
 
     p = inputParser();
     p.addParameter('Format', 'jpg', @ischar);
-    p.addParameter('Resolution', '300', @ischar);
+    p.addParameter('Resolution', 300, @isnumeric);
     p.addParameter('FigureHandle', [], @(x)(isa(x,'clustergram') || isa(x,'matlab.ui.Figure')));
     p.parse(varargin{:});
     
