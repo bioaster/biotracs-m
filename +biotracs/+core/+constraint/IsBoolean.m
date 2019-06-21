@@ -24,6 +24,22 @@ classdef IsBoolean < biotracs.core.constraint.Constraint
             this.isScalar = p.Results.IsScalar;
         end
         
+        function value = filter(~, value)
+            if ischar(value)
+                if strcmpi(value, 'true')
+                    value = true;
+                elseif strcmpi(value, 'false')
+                    value = false;
+                end
+            elseif isnumeric(value)
+                if value == 0
+                    value = false;
+                elseif value == 1
+                    value = true;
+                end
+            end
+        end
+        
     end
     
     methods(Access = protected)

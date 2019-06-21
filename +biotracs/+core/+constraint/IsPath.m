@@ -44,24 +44,17 @@ classdef IsPath < biotracs.core.constraint.IsText
             if ~this.applyFilter
                 return;
             end
-            
-            
+
             value = strrep(value, '?home?', biotracs.core.env.Env.workingDir());  %@DEPRACATED
             value = strrep(value, '%WORKING_DIR%', biotracs.core.env.Env.workingDir());
             value = strrep(value, '%USER_DIR%', biotracs.core.env.Env.userDir());
-%             depPaths = biotracs.core.env.Env.depPaths();
-%             depPathTokens = biotracs.core.env.Env.depPathTokens();
-%             for i=1:length(depPathTokens)
-%                 value = strrep(value, ['%',depPathTokens{i},'%'], depPaths{i});
-%             end
-            
+
             vars = biotracs.core.env.Env.vars();
             names = fieldnames(vars);
             for i=1:length(names)
                 value = strrep(value, ['%', upper(names{i}),'%'], vars.(names{i}));
             end
             
-            %value = strrep(value, '%ROOT_DIR%', biotracs.core.env.Env.rootDir());
             value = fullfile(value);
         end
         

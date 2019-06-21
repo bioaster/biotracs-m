@@ -45,7 +45,16 @@ classdef Shell < biotracs.core.mvc.model.Process
             nbOut = this.doComputeNbCmdToPrepare();
             outputDataFilePaths = cell(1,nbOut);
             listOfCmd = cell(1,nbOut);
+            dataFileSet = this.getInputPortData('DataFileSet');
             for i=1:nbOut
+                if ~isfile(dataFileSet.getAt(i).getPath())
+                    if this.config.getParamValue('SkipWhenInputFileDoesNotExist')
+                        continue;
+                    else
+                        % nothing, an error will be triggered
+                    end
+                end
+                
                 % -- prepare file paths
                 [  outputDataFilePaths{i} ] = this.doPrepareInputAndOutputFilePaths( i );
                 % -- config file export
@@ -64,30 +73,44 @@ classdef Shell < biotracs.core.mvc.model.Process
             [listOfCmd, outputDataFilePaths, nbOut] = this.doPrepareCommand();
             nbCmd = length(listOfCmd);
             cmdout = cell(1,nbOut);
-            outputFileName = cell(1,nbOut);
+            outputFileNames = cell(1,nbOut);
             biotracs.core.parallel.startpool();
+            skippedFiles = false(1,nbOut);
             if nbOut == 0
                 this.logger.writeLog('%s', 'No input data found');
             else
                 parfor sliceIndex=1:nbCmd
-                    [~, cmdout{sliceIndex}] = system( listOfCmd{sliceIndex} );
-                    [~, outputFileName{sliceIndex}, ~] = fileparts( outputDataFilePaths{sliceIndex} );
+                    if isempty(listOfCmd{sliceIndex})
+                        % skip ...
+                        skippedFiles(sliceIndex) = true
+                    else
+                        [~, cmdout{sliceIndex}] = system( listOfCmd{sliceIndex} );
+                        [~, outputFileNames{sliceIndex}, ~] = fileparts( outputDataFilePaths{sliceIndex} );
+                    end
                 end
             end
-            this.doSetResultAndWriteOutLog(nbOut, outputFileName, listOfCmd, cmdout, outputDataFilePaths);  
+
+            % remove skipped files
+            outputFileNames = outputFileNames(~skippedFiles);
+            listOfCmd = listOfCmd(~skippedFiles);
+            cmdout = cmdout(~skippedFiles);
+            outputDataFilePaths = outputDataFilePaths(~skippedFiles);
+            nbOut = length(listOfCmd);
+
+            this.doSetResultAndWriteOutLog(nbOut, outputFileNames, listOfCmd, cmdout, outputDataFilePaths);  
         end
         
-        function this = doSetResultAndWriteOutLog(this, numberOfOutFile, outputFileName, listOfCmd, cmdout, outputDataFilePaths) 
+        function this = doSetResultAndWriteOutLog(this, numberOfOutFile, outputFileNames, listOfCmd, cmdout, outputDataFilePaths) 
             results = this.getOutputPortData('DataFileSet');
             results.allocate(numberOfOutFile);
             
             %store main log file name
             mainLogFileName = this.logger.getLogFileName();
             this.logger.closeLog(true);
-            
+
             %shell log streams in separate files
             for i=1:numberOfOutFile
-                this.logger.setLogFileName(outputFileName{i});
+                this.logger.setLogFileName(outputFileNames{i});
                 this.logger.openLog('w');
                 this.logger.setShowOnScreen(false);
                 
@@ -97,16 +120,20 @@ classdef Shell < biotracs.core.mvc.model.Process
                 this.logger.writeLog('%s', cmdout{i});
                 outputDataFile = biotracs.data.model.DataFile(outputDataFilePaths{i});
                 results.setAt(i, outputDataFile);
-
+                
                 this.logger.closeLog();
             end
-            
+
             %restore maim log stream
             this.logger.setLogFileName(mainLogFileName);
             this.logger.openLog('a');
             this.logger.setShowOnScreen(true);
             for i=1:numberOfOutFile
-                this.logger.writeLog('Resource %s processed', outputFileName{i});
+                if isempty(outputFileNames{i})
+                    this.logger.writeLog('Warning: resource %g skipped', i);
+                else
+                    this.logger.writeLog('Resource %s processed', outputFileNames{i});
+                end
             end
 
             this.setOutputPortData('DataFileSet', results);

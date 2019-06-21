@@ -32,6 +32,12 @@ classdef Controller < biotracs.core.ability.Parametrable
             [this, iName] = this.add(varargin{:});
         end
         
+        %-- E --
+        
+        function [ tf ] = exist( this, iName )
+            tf = this.session.hasElement(iName);
+        end
+        
         %-- G --
         
         function [ node ] = get( this, iName )

@@ -23,6 +23,7 @@ classdef ShellConfig < biotracs.core.mvc.model.ProcessConfig
             this.createParam('UseShellConfigFile', false, 'Constraint', biotracs.core.constraint.IsBoolean());
             this.createParam('ShellConfigFilePath', '', 'Access', biotracs.core.mvc.model.Parameter.PRIVATE_ACCESS, 'Constraint', biotracs.core.constraint.IsOutputPath());
 			this.createParam('OutputFileExtension', '', 'Access', biotracs.core.mvc.model.Parameter.PUBLIC_ACCESS, 'Constraint', biotracs.core.constraint.IsFileExtension(), 'Description', 'The extension of the output files. Default: empty string. Use key words ?inherit? to inherite extension from the input file(s).');
+            this.createParam('SkipWhenInputFileDoesNotExist', false, 'Constraint', biotracs.core.constraint.IsBoolean());
             this.optionSet = biotracs.core.shell.model.OptionSet( this );
         end
              
