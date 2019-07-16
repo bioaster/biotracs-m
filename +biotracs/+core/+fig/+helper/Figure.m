@@ -112,7 +112,9 @@ classdef Figure < handle
             end
             
             if any(strcmpi(flist, 'jpg'))
-                print('-djpeg', fullfile(dirPath, [fileName, '.jpg']), ['-r', num2str(resolution)]);
+                saveas(h, fullfile(dirPath, [fileName, '.jpg']));
+
+%                 print('-djpeg', fullfile(dirPath, [fileName, '.jpg']), ['-r', num2str(resolution)]);
             end
             
             if isa(figHandle, 'clustergram')
