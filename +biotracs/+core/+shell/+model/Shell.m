@@ -91,10 +91,10 @@ classdef Shell < biotracs.core.mvc.model.Process
             end
 
             % remove skipped files
-            outputFileNames = outputFileNames(~skippedFiles);
-            listOfCmd = listOfCmd(~skippedFiles);
-            cmdout = cmdout(~skippedFiles);
-            outputDataFilePaths = outputDataFilePaths(~skippedFiles);
+%             outputFileNames = outputFileNames(~skippedFiles);
+%             listOfCmd = listOfCmd(~skippedFiles);
+%             cmdout = cmdout(~skippedFiles);
+%             outputDataFilePaths = outputDataFilePaths(~skippedFiles);
             nbOut = length(listOfCmd);
 
             this.doSetResultAndWriteOutLog(nbOut, outputFileNames, listOfCmd, cmdout, outputDataFilePaths);  
