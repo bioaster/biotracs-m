@@ -31,7 +31,7 @@ classdef ViewExporter < biotracs.core.adapter.model.FileExporter
             viewLabels              = this.config.getParamValue('ViewLabels');
             nbViews = length(viewNames);
             if nbViews == 0
-                error('BIOTRACS:ViewExporter:NoViewNamesProvided', 'Please give which the names of the views to generate');
+                error('BIOTRACS:ViewExporter:NoViewNamesProvided', 'Please give the names of the views to generate');
             end
                     
             inputResource = this.getInputPortData('Resource');
