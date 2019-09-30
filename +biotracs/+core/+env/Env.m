@@ -157,12 +157,7 @@ classdef Env < handle
                     
                     names = fieldnames(iVariables);
                     for i=1:length(names)
-                        if ischar(iVariables.(names{i}))
-%                             iVariables.(names{i}) = regexprep(...
-%                                 iVariables.(names{i}), ...
-%                                 {'%WORKING_DRI%', '%USER_DIR%'}, ...
-%                                 strrep({biotracs.core.env.Env.workingDir(), biotracs.core.env.Env.userDir()},'\','\\') ...
-%                              );
+                        if ischar(names{i})
                             vars.(names{i}) = iVariables.(names{i});
                         end
                     end
