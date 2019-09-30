@@ -660,6 +660,12 @@ classdef DataTable < biotracs.data.model.DataTableInterface & biotracs.data.mode
             dataTable = this.selectByColumnIndexes(indexes);
         end
         
+          function [dataTable]  = removeByRowIndexes( this, iRowIndexes )
+            n = getSize(this,1);
+            indexes = true(1, n);
+            indexes(iRowIndexes) = false;
+            dataTable = this.selectByRowIndexes(indexes);
+        end
           % Search column of which labels match with a given pattern and remove the corresponding DataTable
         %> @param[in] iSearchedLabelPattern Pattern to search (RegExp)
         %> @param[in] iIsCaseSensitive True if case-sensitive, False otherwise
