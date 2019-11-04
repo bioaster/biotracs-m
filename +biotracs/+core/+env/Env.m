@@ -164,7 +164,7 @@ classdef Env < handle
                     oVars = vars;
                 elseif ischar(iVariables)
                     if isempty(vars)
-                        error('BIOTRACS:Env:VariableNotSet', 'No variables are not set');
+                        error('BIOTRACS:Env:VariableNotSet', 'No variables are set');
                     end
                     oVars = vars.(iVariables);
                     

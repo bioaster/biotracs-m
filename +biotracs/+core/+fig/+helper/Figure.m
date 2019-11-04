@@ -41,7 +41,7 @@ classdef Figure < handle
             p = inputParser();
             p.addParameter('FigureHandle',[],@(x)(isa(x,'matlab.ui.Figure') || isa(x,'clustergram')));
             p.addParameter('AlsoSaveAsMatFile', true, @islogical);
-            p.addParameter('Resolution', 300, @isnumeric);            
+            p.addParameter('Resolution', 0, @isnumeric);            
             p.addParameter('CloseAfterSaving',false,@islogical);
             p.KeepUnmatched = true;
             p.parse(varargin{:});
