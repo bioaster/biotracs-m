@@ -457,8 +457,11 @@ classdef Set < biotracs.core.ability.Copyable & biotracs.core.ability.Comparable
             if any(ismember( iName,  this.elementNames))
                 error('BIOTRACS:Set:Duplicate', 'This name already exists'); 
             end 
+            
+            oldKey =  this.elementNames{iIndex};
             this.elementNames{iIndex} = iName;
-            this.nameMap = containers.Map(iName,  iIndex);
+            this.nameMap(iName) = iIndex;
+            remove(this.nameMap, oldKey);
         end
         
         function setElementNames( this, iNames  )

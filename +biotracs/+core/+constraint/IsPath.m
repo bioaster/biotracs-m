@@ -52,7 +52,9 @@ classdef IsPath < biotracs.core.constraint.IsText
             vars = biotracs.core.env.Env.vars();
             names = fieldnames(vars);
             for i=1:length(names)
-                value = strrep(value, ['%', upper(names{i}),'%'], vars.(names{i}));
+                if ischar(vars.(names{i}))
+                    value = strrep(value, ['%', upper(names{i}),'%'], vars.(names{i}));
+                end
             end
             
             value = fullfile(value);

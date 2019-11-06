@@ -69,6 +69,7 @@ classdef(Abstract) IOSpecsHolder < biotracs.core.container.Set
                 error('BIOTRACS:IOSpecsHolder:UnknownSpecs', 'No specs exist with name ''%s''. Valid names are {''%s''}.', iName, strjoin(names, ''','''));
             end
             oSpec = this.specs{idx};
+            oSpec.multiplicity = 1; % always 1 for a single port
         end
 
         function oSpec = getSpecAt( this, iIndex )
@@ -119,14 +120,30 @@ classdef(Abstract) IOSpecsHolder < biotracs.core.container.Set
                 error('BIOTRACS:IOSpecsHolder:InvalidSpecs', 'Specs must be a cell of struct')
             end
             this.removeAll();
+            iSpecs = this.doSplitSpecsUsingMultiplicity( iSpecs );
             this.specs = iSpecs;
             this.doCreatePortsFromSpecs(iSpecs, true);
         end
+        
+%         % overload 
+%         % prevent renanming port with multiplicity > 1
+%         function this = setElementName( this, iIndex, iName )
+%            spec = this.specs{iIndex};
+%            if spec.multiplicity > 1
+%                error('BIOTRACS:IOSpecsHolder:RenameNotAllowed', 'Cannot rename ports with multiplicity > 1');
+%            else
+%                this.setElementName@biotracs.core.container.Set( iIndex, iName );
+%            end
+%         end
         
         %-- U --
         
         % Update an input spec
         function this = updateSpecs( this, iSpecs )
+            if ~iscell(iSpecs)
+                error('BIOTRACS:IOSpecsHolder:InvalidSpecs', 'Specs must be a cell of struct')
+            end
+            iSpecs = this.doSplitSpecsUsingMultiplicity( iSpecs );
             n = length(iSpecs);
             for j=1:n
                 currentSpec = iSpecs{j};
@@ -172,6 +189,30 @@ classdef(Abstract) IOSpecsHolder < biotracs.core.container.Set
             end
         end
 
+        function oSpecs = doSplitSpecsUsingMultiplicity( ~, iSpecs )
+            oSpecs = {};
+            cpt = 1;
+            for i=1:length(iSpecs)
+                if ~isfield(iSpecs{i}, 'multiplicity')
+                    iSpecs{i}.multiplicity = 1;
+                end
+                
+                if iSpecs{i}.multiplicity == 1
+                    oSpecs{cpt} = iSpecs{i};
+                else
+                    for j=1:iSpecs{i}.multiplicity
+                        oSpecs{cpt} = iSpecs{i};
+                        
+                        oSpecs{cpt}.name = strcat(iSpecs{i}.name,'#',num2str(j));
+                        oSpecs{cpt}.multiplicity = 1;
+                        cpt = cpt + 1;
+                    end
+                end
+                cpt = cpt + 1;
+            end
+        end
+        
+        
         % Create input or output ports according to the specs
         %> @param[in] iSpecs Specifications
         function doCreatePortsFromSpecs( this, iSpecs, hasToAddNew )
@@ -204,30 +245,40 @@ classdef(Abstract) IOSpecsHolder < biotracs.core.container.Set
                     isRequired = true;
                 end
                 
-                % multiplicity
-                if isfield(iSpecs{i}, 'multiplicity') && iSpecs{i}.multiplicity >= 1
-                    multiplicity = iSpecs{i}.multiplicity;
+                % multiplicity is 1
+                port = feval( portCalss, dataClass, isRequired );
+                port.setParent(this);
+                name = iSpecs{i}.name;
+                if hasToAddNew
+                    this.add( port, name );
                 else
-                    multiplicity = 1;
+                    this.set( name, port );
                 end
- 
-                % create ports
-                for j=1:multiplicity
-                    port = feval( portCalss, dataClass, isRequired );
-                    port.setParent(this);
-                        
-                    if multiplicity > 1
-                        name = strcat(iSpecs{i}.name,'#',num2str(j));
-                    else
-                        name = iSpecs{i}.name;
-                    end
                     
-                    if hasToAddNew
-                        this.add( port, name );
-                    else
-                        this.set( name, port );
-                    end
-                end
+%                 % multiplicity
+%                 if isfield(iSpecs{i}, 'multiplicity') && iSpecs{i}.multiplicity >= 1
+%                     multiplicity = iSpecs{i}.multiplicity;
+%                 else
+%                     multiplicity = 1;
+%                 end
+%  
+%                 % create ports
+%                 for j=1:multiplicity
+%                     port = feval( portCalss, dataClass, isRequired );
+%                     port.setParent(this);
+%                         
+%                     if multiplicity > 1
+%                         name = strcat(iSpecs{i}.name,'#',num2str(j));
+%                     else
+%                         name = iSpecs{i}.name;
+%                     end
+%                     
+%                     if hasToAddNew
+%                         this.add( port, name );
+%                     else
+%                         this.set( name, port );
+%                     end
+%                 end
             end
         end
 

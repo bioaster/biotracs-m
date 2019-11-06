@@ -153,7 +153,7 @@ classdef(Abstract) PortSet < biotracs.core.ability.Pluggable & biotracs.core.io.
         %-- S --
         
         function this = setPortNameByIndex( this, iIndex, iName )
-           this.setElementName( iIndex, iName );
+          this.setElementName( iIndex, iName );
         end
 
         function this = propagate( this, varargin )
