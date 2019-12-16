@@ -22,6 +22,8 @@ classdef DocuSet < biotracs.core.mvc.model.ResourceSet
         
         % Constructor
         function this = DocuSet( varargin )
+			%#function biotracs.core.docu.model.Docu
+			
             this@biotracs.core.mvc.model.ResourceSet( varargin{:} );
             this.classNameOfElements = {'biotracs.core.docu.model.Docu'};
             this.bindView( biotracs.core.docu.view.DocuSet() );

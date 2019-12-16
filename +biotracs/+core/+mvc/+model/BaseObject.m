@@ -30,6 +30,8 @@ classdef BaseObject < biotracs.core.mvc.model.Model
         % Constructor
         %> @fn this = BaseObject( iBaseObject )
         function this = BaseObject( varargin )
+            %#function biotracs.core.mvc.view.BaseObject
+            
             this@biotracs.core.mvc.model.Model( varargin{:} );
             this.label = this.className;
             this.bindView( biotracs.core.mvc.view.BaseObject() );	 %bind default view

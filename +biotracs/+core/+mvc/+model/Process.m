@@ -27,6 +27,8 @@ classdef Process < biotracs.core.mvc.model.Engine & biotracs.core.mvc.model.Base
         
         % Constructor
         function this = Process( )
+            %#function biotracs.core.mvc.model.ProcessConfig
+            
             this@biotracs.core.mvc.model.BaseObject();
             this@biotracs.core.mvc.model.Engine();
             this.engines = biotracs.core.container.Set(0, 'biotracs.core.mvc.model.Engine');

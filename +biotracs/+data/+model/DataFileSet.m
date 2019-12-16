@@ -23,6 +23,8 @@ classdef DataFileSet < biotracs.core.mvc.model.ResourceSet
         % Constructor
         %> @param[in] iRepository [string, default = ''] Repository of the file
         function this = DataFileSet( varargin )
+			%#function biotracs.data.model.DataFile
+			
             this@biotracs.core.mvc.model.ResourceSet( varargin{:} );
             this.classNameOfElements = {'biotracs.data.model.DataFile'};
         end

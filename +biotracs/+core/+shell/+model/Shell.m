@@ -15,6 +15,8 @@ classdef Shell < biotracs.core.mvc.model.Process
     methods
         
         function this = Shell()
+            %#function biotracs.core.model.shell.ShellConfig
+            
             this@biotracs.core.mvc.model.Process()
         end
 

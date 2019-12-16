@@ -78,10 +78,18 @@ classdef PathReader < biotracs.core.helper.Helper
                     end
                 end
             elseif isfile(iPath)
-                logStr{end+1} = ['Load file "',iPath,'"'];
-                filePath = fullfile(iPath);
-                df = biotracs.data.model.DataFile(filePath);
-                oDataFiles.add( df, filePath );
+                [~,~,ext] = fileparts( iPath );
+                extPattern = strrep(p.Results.FileExtensionFilter,',','|');
+                isValidExtension = isempty(extPattern) || ...
+                    strcmpi(extPattern, ext) || ...
+                    ~isempty(regexpi(ext, extPattern, 'once'));
+                
+                if isValidExtension
+                    logStr{end+1} = ['Load file "',iPath,'"'];
+                    filePath = fullfile(iPath);
+                    df = biotracs.data.model.DataFile(filePath);
+                    oDataFiles.add( df, filePath );
+                end
             else
                 error('BIOTRACS:PathReader:PathAccessRestricted', 'Path "%s" is not found. Please check that the path exists or the access rights.',iPath);
             end

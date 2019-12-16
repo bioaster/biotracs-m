@@ -26,6 +26,8 @@ classdef(Abstract) Port < biotracs.core.ability.Pluggable & biotracs.core.abilit
     methods
 
         function this = Port( iClassOfData, iRequired )
+            %#function biotracs.core.mvc.model.Resource
+            
             this@biotracs.core.ability.Pluggable();
             this@biotracs.core.ability.Copyable();
             

@@ -22,6 +22,8 @@ classdef Model < biotracs.core.ability.Viewable
         
         % Constructor
         function this = Model( varargin )
+            %#function biotracs.core.mvc.view.View
+            
             this@biotracs.core.ability.Viewable( varargin{:} );
         end
 

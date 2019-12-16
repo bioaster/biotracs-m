@@ -107,6 +107,8 @@ classdef (Abstract) Runnable < biotracs.core.ability.Chainable & biotracs.core.a
             this.output.connectTo(iOutput, varargin{:});
         end
         
+        %-- D --
+
         %-- E --
         
         function emulate( this )
@@ -114,9 +116,9 @@ classdef (Abstract) Runnable < biotracs.core.ability.Chainable & biotracs.core.a
             this.run();
             this.isEmulation = false;
         end
-
+        
         %-- G --
-
+        
         function tf = get.isPhantom( this)
             tf = this.config.getParamValue('IsPhantom');
         end
@@ -227,13 +229,13 @@ classdef (Abstract) Runnable < biotracs.core.ability.Chainable & biotracs.core.a
         end
         
         %-- H --
-
+        
         function tf = hasParent( this )
             tf = ~isempty(this.parent);
         end
         
         %-- I --
-
+        
         function tf = isStarted( this )
             tf = ~isempty(this.startDateTime);
         end
@@ -243,8 +245,8 @@ classdef (Abstract) Runnable < biotracs.core.ability.Chainable & biotracs.core.a
         end
         
         function [tf] = isReady( this )
-%             tf = (this.input.isReady() || this.isSource()) && ...
-%                 (this.output.isDefined() || this.isSink());
+            %             tf = (this.input.isReady() || this.isSource()) && ...
+            %                 (this.output.isDefined() || this.isSink());
             tf = this.input.isReady() && this.output.isDefined();
         end
         
@@ -257,7 +259,7 @@ classdef (Abstract) Runnable < biotracs.core.ability.Chainable & biotracs.core.a
             next = this.getNext();
             tf = isempty(next);
         end
-
+        
         %-- O --
         
         %-- R --
@@ -279,7 +281,7 @@ classdef (Abstract) Runnable < biotracs.core.ability.Chainable & biotracs.core.a
                 end
             end
         end
-
+        
         function resizeInput( this, iNbPorts, varargin )
             this.input.resize( iNbPorts, varargin{:}  );
         end
@@ -290,15 +292,15 @@ classdef (Abstract) Runnable < biotracs.core.ability.Chainable & biotracs.core.a
         
         % Run the process
         function run(this, varargin)
-            if ~this.isReady() || this.isEnded || this.isDeactivated
+            if ~this.isReady() || this.isEnded() || this.isDeactivated
                 return;
             end
-
-%             if this.isEnded()
-%                 fprintf('Already run. Go next!')
-%                 this.doExecuteNext();
-%                 return
-%             end
+            
+            %             if this.isEnded()
+            %                 fprintf('Already run. Go next!')
+            %                 this.doExecuteNext();
+            %                 return
+            %             end
             
             % init
             this.notify('onInit');
@@ -341,7 +343,7 @@ classdef (Abstract) Runnable < biotracs.core.ability.Chainable & biotracs.core.a
             
             % propagate to the next node
             this.output.propagate();    %ensure that all data has been propagated (Force = true)
-
+            
             % execute next elements if any
             this.doExecuteNext();
         end
@@ -355,7 +357,7 @@ classdef (Abstract) Runnable < biotracs.core.ability.Chainable & biotracs.core.a
             end
             this.parent = iParent;
         end
-
+        
         function this = setInput( this, iInput )
             if ~isa(iInput, 'biotracs.core.io.Input') && ~isa(iInput, 'biotracs.core.io.Terminal')
                 error('BIOTRACS:Runnable:InvalidArguments', 'A biotracs.core.io.Input is required');
@@ -375,7 +377,7 @@ classdef (Abstract) Runnable < biotracs.core.ability.Chainable & biotracs.core.a
         
         function this = setIsDeactivated( this, isDeactivated )
             if ~islogical(isDeactivated)
-               error('BIOTRACS:Runnable:InvalidArgument', 'A logical value is required'); 
+                error('BIOTRACS:Runnable:InvalidArgument', 'A logical value is required');
             end
             %this.isDeactivated = isDeactivated;
             this.config.updateParamValue('IsDeactivated', isDeactivated);
@@ -383,17 +385,17 @@ classdef (Abstract) Runnable < biotracs.core.ability.Chainable & biotracs.core.a
         
         function this = setIsPhantom( this, isPhantom )
             if ~islogical(isPhantom)
-               error('BIOTRACS:Runnable:InvalidArgument', 'A logical value is required'); 
+                error('BIOTRACS:Runnable:InvalidArgument', 'A logical value is required');
             end
             this.config.updateParamValue('IsPhantom', isPhantom);
             %this.isPhantom = isPhantom;
         end
-
+        
         function this = setInputPortData( this, iPortName, iData )
             port = this.input.getPort(iPortName);
             port.setData(iData);
         end
-
+        
         function this = setOutputPortData( this, iPortName, iData )
             port = this.output.getPort(iPortName);
             port.setData(iData);
@@ -470,7 +472,7 @@ classdef (Abstract) Runnable < biotracs.core.ability.Chainable & biotracs.core.a
             
             this.startDateTime = iRunnable.startDateTime;
             this.endDateTime = iRunnable.endDateTime;
-        
+            
             % create new inputs/ouputs
             this.setInputSpecs( iRunnable.getInputSpecs() );
             this.setOutputSpecs( iRunnable.getOutputSpecs );
@@ -495,7 +497,7 @@ classdef (Abstract) Runnable < biotracs.core.ability.Chainable & biotracs.core.a
                 this.output.getPortAt(i).setData( data );
             end
         end
-         
+        
         
         %-- G --
         
@@ -512,7 +514,7 @@ classdef (Abstract) Runnable < biotracs.core.ability.Chainable & biotracs.core.a
             elseif isempty(wd)
                 wd = fullfile(biotracs.core.env.Env.tempDir(), biotracs.core.env.Env.name());
                 this.logger.writeLog('The working directory is %s', wd);
-            end 
+            end
         end
         
         %-- I --
@@ -535,7 +537,7 @@ classdef (Abstract) Runnable < biotracs.core.ability.Chainable & biotracs.core.a
                 error('BIOTRACS:Runnable:PathAccessRestricted', 'Cannot create working directory ''%s''', wd);
             end
         end
- 
+        
         % Try to pass the input port data to the output ports
         % If M input ports and N output ports are defined with M > N, then
         % the M first input data are passed to the N output ports
@@ -545,12 +547,14 @@ classdef (Abstract) Runnable < biotracs.core.ability.Chainable & biotracs.core.a
             end
             this.logger.writeLog('Pass all the input data to the output');
             try
+                ouputPortCpt = 1;
                 for i=1:this.input.getLength()
                     port = this.input.getPortAt(i);
                     %try to pass to the output port is possible
-                    hasCorrespondingOutputPort = this.output.getLength() >= i;
-                    if hasCorrespondingOutputPort
-                        this.output.getPortAt(i).setData( port.getData() );
+                    hasCorrespondingOutputPort = this.output.getLength() >= ouputPortCpt;
+                    if port.isReady() && hasCorrespondingOutputPort
+                        this.output.getPortAt(ouputPortCpt).setData( port.getData() );
+                        ouputPortCpt = ouputPortCpt+1;
                     end
                 end
             catch exception

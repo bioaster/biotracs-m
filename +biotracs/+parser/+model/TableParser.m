@@ -21,6 +21,7 @@ classdef TableParser < biotracs.core.parser.model.BaseParser
     methods
         % Constructor
         function this = TableParser( )
+            %#function biotracs.parser.model.TableParserConfig biotracs.data.model.DataTable biotracs.data.model.ExtDataTable
             this@biotracs.core.parser.model.BaseParser();
             this.data = table();
         end

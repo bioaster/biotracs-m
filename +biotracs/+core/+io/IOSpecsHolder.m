@@ -30,6 +30,8 @@ classdef(Abstract) IOSpecsHolder < biotracs.core.container.Set
         % Contructor
         %> @see biotracs.core.container.Set
         function this = IOSpecsHolder( varargin )
+            %#function biotracs.core.io.Port
+            
             this@biotracs.core.container.Set();
             this.classNameOfElements = {'biotracs.core.io.Port'};
         end

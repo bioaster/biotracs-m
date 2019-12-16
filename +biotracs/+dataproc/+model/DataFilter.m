@@ -25,6 +25,8 @@ classdef DataFilter < biotracs.core.mvc.model.Process
         
         % Constructor
         function this = DataFilter()
+            %#function biotracs.dataproc.model.DataFilterConfig biotracs.data.model.DataMatrix
+            
             this@biotracs.core.mvc.model.Process();
             
             % define input and output specs

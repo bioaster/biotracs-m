@@ -14,6 +14,8 @@ classdef Input < biotracs.core.io.PortSet
     methods
         
         function this = Input( iSpecs )
+			%#function biotracs.core.io.InputPort
+			
             this@biotracs.core.io.PortSet();
             this.classNameOfElements = {'biotracs.core.io.InputPort'};
             if nargin == 1, this.setSpecs(iSpecs); end

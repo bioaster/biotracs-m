@@ -25,6 +25,8 @@ classdef DataNormalizer < biotracs.core.mvc.model.Process
         
         % Constructor
         function this = DataNormalizer()
+            %#function biotracs.dataproc.model.DataNormalizerConfig biotracs.data.model.DataMatrix
+            
             this@biotracs.core.mvc.model.Process();
             
             % define input and output specs

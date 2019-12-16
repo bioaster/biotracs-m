@@ -42,7 +42,7 @@ classdef Env < handle
         end
         
         %-- B --
-
+        
         %-- C --
         
         function company = company()
@@ -51,6 +51,14 @@ classdef Env < handle
         
         %-- D --
 
+        function [ t ] = deployedExternDirToken()
+            t = 'BIOTRACS_DEPLOYED_EXTERN_DIR';
+        end
+        
+        function [ dirPath ] = deployedExternDir()
+            dirPath = fullfile(biotracs.core.env.Env.userDir(),'BIOASTER', 'BIOTRACS', 'externs');
+        end
+        
         %-- G --
 
         function oLogger = currentLogger( iLogger )
@@ -62,14 +70,44 @@ classdef Env < handle
         end
         
         %-- E --
-
+        
+        %-- G --
+        
+        function url = githubRepoUrl( name )
+           url = 'https://github.com/bioaster/'; 
+           if nargin
+              url = [url, name, '/']; 
+           end
+        end
+        
         %-- I --
+        
+        function tf = isInteractive(iInteractive)
+            persistent interactive;
+            if nargin
+                interactive = iInteractive;
+            end
+            
+            if isempty(interactive)
+                interactive = false;
+            end
+            
+            tf = interactive;
+        end
         
         function tf = isGraphicalMode()
             tf = false;
             return;
             %tf = java.lang.System.getProperty( 'java.awt.headless' );
             %tf = isempty(tf) || ~tf;
+        end
+        
+        function iDir = installDir()
+            if isdeployed
+                iDir = fullfile('C:/BIOASTER/BIOTRACS/');
+            else
+                iDir = [];
+            end
         end
         
         %-- L --
@@ -111,6 +149,14 @@ classdef Env < handle
                 persistentRootDir = iPaths;
             end
             oPath = persistentRootDir;
+            
+            if isdeployed && ~isempty(oPath)
+                oPath = strrep( ...
+                    oPath, ...
+                    ['%',biotracs.core.env.Env.deployedExternDirToken(),'%'], ...
+                    biotracs.core.env.Env.deployedExternDir() ...
+                    );
+            end
         end
         
         function oPath = depPathTokens( iTokens )
@@ -157,26 +203,40 @@ classdef Env < handle
                     
                     names = fieldnames(iVariables);
                     for i=1:length(names)
-                        if ischar(names{i})
+                        if ischar(iVariables.(names{i}))
                             vars.(names{i}) = iVariables.(names{i});
                         end
                     end
                     oVars = vars;
                 elseif ischar(iVariables)
                     if isempty(vars)
+                        fprintf('Variable %s is not found\n.Available variables are:', iVariables);
+                        disp(biotracs.core.env.Env.vars());
                         error('BIOTRACS:Env:VariableNotSet', 'No variables are set');
                     end
                     oVars = vars.(iVariables);
                     
                     %replace wildcards
                     depPaths = biotracs.core.env.Env.depPaths();
-                    depPathTokens = strcat('%',biotracs.core.env.Env.depPathTokens(),'%');
-
+                    if ~isempty(biotracs.core.env.Env.depPathTokens())
+                        depPathTokens = strcat('%',biotracs.core.env.Env.depPathTokens(),'%');
+                    else
+                        depPathTokens = [];
+                    end
+                    
                     if ischar(oVars)
                         oVars = regexprep(...
                             oVars, ...
                             regexptranslate('escape', [{'%WORKING_DIR%', '%USER_DIR%'}, depPathTokens]), ...
                             strrep([{biotracs.core.env.Env.workingDir(), biotracs.core.env.Env.userDir()}, depPaths],'\','\\') ...
+                        );
+                    end
+                    
+                    if isdeployed
+                        oVars = regexprep(...
+                            oVars, ...
+                            regexptranslate('escape', ['%',biotracs.core.env.Env.deployedExternDirToken(),'%']), ...
+                            strrep(biotracs.core.env.Env.deployedExternDir(),'\','\\') ...
                         );
                     end
                 end
@@ -229,4 +289,3 @@ classdef Env < handle
     end
     
 end
-

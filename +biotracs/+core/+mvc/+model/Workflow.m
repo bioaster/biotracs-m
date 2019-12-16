@@ -16,6 +16,8 @@ classdef Workflow < biotracs.core.mvc.model.Process
     methods
         
         function this = Workflow()
+            %#function biotracs.core.mvc.model.WorkflowConfig biotracs.core.mvc.view.Workflow biotracs.core.mvc.model.Process
+            
             this@biotracs.core.mvc.model.Process();
             this.listOfNodes = biotracs.core.container.Set(0,'biotracs.core.ability.Runnable');
             this.bindView( biotracs.core.mvc.view.Workflow() );	 %bind default view

@@ -22,6 +22,8 @@ classdef ExtDataTable < biotracs.core.mvc.model.ResourceSet
     methods
         
         function this = ExtDataTable( varargin )
+			%#function biotracs.data.model.DataTable
+			
             this@biotracs.core.mvc.model.ResourceSet( varargin{:} );
             this.classNameOfElements = {'biotracs.data.model.DataTable'};
         end

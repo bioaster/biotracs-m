@@ -25,6 +25,8 @@ classdef DataXSelector < biotracs.core.mvc.model.Process
         
         % Constructor
         function this = DataXSelector()
+            %#function biotracs.data.model.DataSet
+            
             this@biotracs.core.mvc.model.Process();
             
             % define input and output specs

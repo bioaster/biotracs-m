@@ -22,6 +22,8 @@ classdef DataStatsCalculator < biotracs.core.mvc.model.Process
         
         % Constructor
         function this = DataStatsCalculator()
+            %#function biotracs.dataproc.model.DataStatsCalculatorConfig biotracs.data.model.DataMatrix biotracs.core.mvc.model.ResourceSet
+            
             this@biotracs.core.mvc.model.Process();
             
             %define input and output specs

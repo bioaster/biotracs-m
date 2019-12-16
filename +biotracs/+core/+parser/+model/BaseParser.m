@@ -26,6 +26,8 @@ classdef (Abstract) BaseParser < biotracs.core.mvc.model.Process
         
         % Constructor
         function this = BaseParser()
+            %#function biotracs.core.parser.model.BaseParserConfig
+            
             this@biotracs.core.mvc.model.Process();
             % enhance inputs specs
             this.addInputSpecs({...

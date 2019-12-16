@@ -21,6 +21,7 @@ classdef Logger < handle
         showOnScreen = true;
         noLineBreak = false;
         
+        %isInSharedMemory = false;
     end
     
     properties(Access = private)
@@ -51,7 +52,9 @@ classdef Logger < handle
   
         %Destructor
         function delete( this )
-            this.closeLog();
+            %if ~this.isInSharedMemory
+                this.closeLog();
+            %end
             this.delete@handle();
         end
         
@@ -238,6 +241,12 @@ classdef Logger < handle
         end
         
     end
+    
+%     methods(Access = {?biotracs.core.env.Env})
+%         function setIsInSharedMemory( this, tf )
+%             this.isInSharedMemory = tf;
+%         end
+%     end
     
     % -------------------------------------------------------
     % Static methods

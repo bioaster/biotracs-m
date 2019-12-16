@@ -26,7 +26,8 @@ classdef Resource < biotracs.core.mvc.model.BaseObject
         
         % Constructor
         function this = Resource( iResource )
-            %this@biotracs.core.io.IOFlow();
+            %#function biotracs.core.mvc.view.Resource
+            
             this@biotracs.core.mvc.model.BaseObject();
             if nargin == 0
                 this.process = biotracs.core.mvc.model.Process.empty();

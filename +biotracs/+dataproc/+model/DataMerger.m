@@ -25,6 +25,8 @@ classdef DataMerger < biotracs.core.mvc.model.Process
         
         % Constructor
         function this = DataMerger()
+            %#function biotracs.dataproc.model.DataMergerConfig biotracs.data.model.DataTable biotracs.core.mvc.model.ResourceSet
+            
             this@biotracs.core.mvc.model.Process();
             
             % define input and output specs

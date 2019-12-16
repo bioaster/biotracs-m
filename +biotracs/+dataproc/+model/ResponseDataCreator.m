@@ -27,6 +27,8 @@ classdef ResponseDataCreator < biotracs.core.mvc.model.Process
         
         % Constructor
         function this = ResponseDataCreator()
+            %#function biotracs.dataproc.model.ResponseDataCreatorConfig biotracs.data.model.DataSet
+            
             this@biotracs.core.mvc.model.Process();
             
             % define input and output specs

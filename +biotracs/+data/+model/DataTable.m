@@ -35,6 +35,8 @@ classdef DataTable < biotracs.data.model.DataTableInterface & biotracs.data.mode
         % {key,val} structs, iTags{2} 1-by-m cell containing column tags given by {key,val} structs.
         %> @throw Error if constructor fails
         function this = DataTable( iData, iColumnNames, iRowNames, iTags )
+            %#function biotracs.data.model.ExtDataTable biotracs.data.view.DataTable
+            
             this@biotracs.data.model.DataTableInterface();
             this@biotracs.data.model.DataObject();
             this.dataType = 'cell';

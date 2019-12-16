@@ -22,6 +22,8 @@ classdef DataSet < biotracs.data.model.DataMatrix
         %> @param[in] iColumnNames [optional] Cell of string
         %> @param[in] iRowNames [optional] Cell of string
         function this = DataSet( iData, varargin )
+            %#function biotracs.data.view.DataSet
+            
             if nargin == 0, iData = []; end
             this@biotracs.data.model.DataMatrix( iData, varargin{:} );
             this.bindView( biotracs.data.view.DataSet );

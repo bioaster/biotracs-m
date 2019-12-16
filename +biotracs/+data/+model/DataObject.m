@@ -25,6 +25,8 @@ classdef DataObject < biotracs.data.model.DataObjectInterface & biotracs.core.mv
         
         % Constructor
         function this = DataObject( iData )
+            %#function biotracs.data.view.DataObject
+            
             this@biotracs.core.mvc.model.Resource();
             if nargin == 1
                 this.setData( iData );

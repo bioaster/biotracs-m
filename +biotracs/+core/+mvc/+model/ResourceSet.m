@@ -28,6 +28,8 @@ classdef ResourceSet < biotracs.core.container.Set & biotracs.core.mvc.model.Res
         % A number of elements (for memory pre-allocation) or A object that
         % will be used to fill the SpectrumSet if possible
         function this = ResourceSet( varargin )
+			%#function biotracs.core.mvc.view.ResourceSet
+			
             this@biotracs.core.container.Set( );
             this@biotracs.core.mvc.model.Resource();
             

@@ -25,6 +25,8 @@ classdef DataSplitter < biotracs.core.adapter.model.Iterator
         
         % Constructor
         function this = DataSplitter()
+            %#function biotracs.dataproc.model.DataSplitterConfig biotracs.data.model.DataTable
+            
             this@biotracs.core.adapter.model.Iterator();
             
             % define input and output specs

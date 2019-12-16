@@ -25,6 +25,8 @@ classdef Subsampler < biotracs.core.mvc.model.Process
         
         % Constructor
         function this = Subsampler()
+            %#function biotracs.dataproc.model.SubsamplerConfig biotracs.data.model.DataMatrix
+            
             this@biotracs.core.mvc.model.Process();
             
             % define input and output specs

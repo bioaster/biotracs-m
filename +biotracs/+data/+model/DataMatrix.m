@@ -29,6 +29,8 @@ classdef DataMatrix < biotracs.data.model.DataMatrixInterface & biotracs.data.mo
         % {key,val} structs, iTags{2} 1-by-m cell containing column tags given by {key,val} structs.
         %> @throw Error if constructor fails
         function this = DataMatrix( iData, iColumnNames, iRowNames, iTags )
+            %#function biotracs.data.view.DataMatrix
+            
             this@biotracs.data.model.DataMatrixInterface();
             this@biotracs.data.model.DataTable();
             this.dataType = 'numeric';

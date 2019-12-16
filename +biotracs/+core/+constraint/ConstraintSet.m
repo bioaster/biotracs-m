@@ -16,6 +16,8 @@ classdef ConstraintSet < biotracs.core.constraint.Constraint & biotracs.core.con
     methods
 
          function this = ConstraintSet( varargin )
+			%#function biotracs.core.constraint.Constraint
+			
             this@biotracs.core.constraint.Constraint();
             this@biotracs.core.container.Set( varargin{:} );
             this.classNameOfElements = {'biotracs.core.constraint.Constraint'};
